@@ -1,0 +1,26 @@
+# Apache Configuration for Anila S Portfolio
+
+# Default landing page
+DirectoryIndex index.php index.html
+
+# Prevent directory browsing
+Options -Indexes
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Protect sensitive database definition and config files from direct HTTP access
+<FilesMatch "^(schema\.sql|\.env|\.git)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# Enable Gzip compression if mod_deflate is active
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
